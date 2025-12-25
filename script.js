@@ -32,7 +32,9 @@ function checkGuess() {
  `;
     return;
   }
-  attemptCount++;
+
+  attemptCount++; // เพิ่มตรงนี้
+
   if (guessValue === secretNumber) {
     resultContainer.innerHTML = `
  <div class="alert alert-success" role="alert">
