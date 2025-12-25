@@ -42,6 +42,16 @@ function checkGuess() {
  <p>คุณทายถูกในครั้งที่ ${attemptCount}</p>
  </div>
  `;
+    // ===== เพิ่ม High Score ตรงนี้ =====
+    let bestScore = localStorage.getItem("highScore");
+
+    if (bestScore === null || attemptCount < parseInt(bestScore)) {
+      localStorage.setItem("highScore", attemptCount);
+      document.getElementById("highScore").textContent =
+        "High Score: " + attemptCount + " ครั้ง";
+    }
+
+    // ===== เพิ่ม High Score บนนี้ =====
   } else if (guessValue > secretNumber) {
     resultContainer.innerHTML = `
  <div class="alert alert-warning" role="alert">
