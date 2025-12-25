@@ -68,9 +68,6 @@ function checkGuess() {
       document.getElementById("highScore").textContent =
         "High Score: " + attemptCount + " ครั้ง";
     }
-    // =====  รีเซ็ตเกมอัตโนมัติเมื่อทายถูก =====
-    initializeGame(); // ← ตรงนี้สำคัญ
-    return; // ออกจากฟังก์ชันทันที
 
     // ===== เพิ่ม High Score ตรงนี้ =====
   } else if (guessValue > secretNumber) {
