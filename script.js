@@ -3,17 +3,34 @@
 let secretNumber = 0;
 // ตัวแปรนับจํานวนครั้งที่ทาย
 let attemptCount = 0;
+
+// ================== High Score ==================
+function loadHighScore() {
+  let highScore = localStorage.getItem("highScore");
+  const highScoreElement = document.getElementById("highScore");
+
+  if (!highScoreElement) return;
+
+  if (highScore === null) {
+    highScoreElement.textContent = "High Score: -";
+  } else {
+    highScoreElement.textContent = "High Score: " + highScore + " ครั้ง";
+  }
+}
+
 // ฟังก์ชันเริ่มเกมใหม่
 function initializeGame() {
   secretNumber = Math.floor(Math.random() * 100) + 1;
   attemptCount = 0;
   updateDisplay();
+  loadHighScore();
 }
 // ฟังก์ชันตรวจสอบการทาย
 function checkGuess() {
   const guessInput = document.getElementById("guessInput");
   const guessValue = parseInt(guessInput.value);
   const resultContainer = document.getElementById("resultContainer");
+
   // Validation: ตรวจสอบว่าใส่ตัวเลขหรือไม่
   if (isNaN(guessValue) || guessInput.value === "") {
     resultContainer.innerHTML = `
@@ -23,6 +40,7 @@ function checkGuess() {
  `;
     return;
   }
+
   // Validation: ตรวจสอบว่าอยู่ในช่วง 1-100 หรือไม่
   if (guessValue < 1 || guessValue > 100) {
     resultContainer.innerHTML = `
@@ -51,7 +69,7 @@ function checkGuess() {
         "High Score: " + attemptCount + " ครั้ง";
     }
 
-    // ===== เพิ่ม High Score บนนี้ =====
+    // ===== เพิ่ม High Score ตรงนี้ =====
   } else if (guessValue > secretNumber) {
     resultContainer.innerHTML = `
  <div class="alert alert-warning" role="alert">
@@ -80,6 +98,10 @@ function resetGame() {
   document.getElementById("resultContainer").innerHTML = "";
   document.getElementById("guessInput").value = "";
   document.getElementById("guessInput").focus();
+
+  // รีเซ็ต High Score
+  localStorage.removeItem("highScore");
+  document.getElementById("highScore").textContent = "High Score: -";
 }
 // เริ่มเกมเมื่อโหลดหน้า
 window.addEventListener("load", initializeGame);
